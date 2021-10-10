@@ -19,7 +19,7 @@ import { DriverModule } from './driver/driver.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASS,
       database: process.env.DATABASE_NAME,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [__dirname + '/../dist/**/*.model{.ts,.js}'],
       synchronize: false,
     }),
     DriverModule,

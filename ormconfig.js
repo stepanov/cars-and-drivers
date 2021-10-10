@@ -6,8 +6,8 @@ module.exports = {
   password: '',
   database: 'cars_and_drivers',
   entities: ['dist/**/*.model.js'],
-  migrations: ['database/migrations/*.js'],
+  migrations: ['dist/database/migrations/*.js'],
   cli: {
-    migrationsDir: 'database/migrations',
+    migrationsDir: 'src/database/migrations',
   },
 };
