@@ -36,7 +36,7 @@ export class CreateCarTable1633867040286 implements MigrationInterface {
       true,
     );
     await queryRunner.createIndex(
-      'drivers',
+      'cars',
       new TableIndex({
         name: 'IDX_CAR_PLATE_NUMBER',
         columnNames: ['plate_number'],
