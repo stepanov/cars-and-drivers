@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableIndex } from 'typeorm';
 
-export class CreateDriverTable1633848292906 implements MigrationInterface {
+export class CreateCarTable1633867040286 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'drivers',
+        name: 'cars',
         columns: [
           {
             name: 'id',
@@ -12,15 +12,11 @@ export class CreateDriverTable1633848292906 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'name',
+            name: 'plate_number',
             type: 'varchar',
           },
           {
-            name: 'email',
-            type: 'varchar',
-          },
-          {
-            name: 'phone',
+            name: 'brand',
             type: 'varchar',
           },
           {
@@ -42,14 +38,14 @@ export class CreateDriverTable1633848292906 implements MigrationInterface {
     await queryRunner.createIndex(
       'drivers',
       new TableIndex({
-        name: 'IDX_DRIVER_EMAIL',
-        columnNames: ['email'],
+        name: 'IDX_CAR_PLATE_NUMBER',
+        columnNames: ['plate_number'],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropIndex('drivers', 'IDX_DRIVER_EMAIL');
-    await queryRunner.dropTable('drivers');
+    await queryRunner.dropIndex('cars', 'IDX_CAR_PLATE_NUMBER');
+    await queryRunner.dropTable('cars');
   }
 }
