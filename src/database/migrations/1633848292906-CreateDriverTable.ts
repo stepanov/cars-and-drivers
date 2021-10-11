@@ -10,6 +10,8 @@ export class CreateDriverTable1633848292906 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'name',
@@ -26,6 +28,10 @@ export class CreateDriverTable1633848292906 implements MigrationInterface {
           {
             name: 'note',
             type: 'varchar',
+          },
+          {
+            name: 'car_id',
+            type: 'int',
           },
           {
             name: 'created_at',

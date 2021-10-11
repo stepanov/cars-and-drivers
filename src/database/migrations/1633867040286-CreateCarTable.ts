@@ -10,6 +10,8 @@ export class CreateCarTable1633867040286 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'plate_number',
