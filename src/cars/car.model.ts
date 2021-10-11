@@ -1,18 +1,20 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { DriverModel } from 'src/driver/driver.model';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'cars' })
 export class CarModel {
   @Field()
-  @PrimaryGeneratedColumn()
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Field()
   @Column({ length: 255, nullable: false })
@@ -35,4 +37,7 @@ export class CarModel {
   @Column()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => DriverModel, (driver) => driver.car)
+  drivers: DriverModel[];
 }
