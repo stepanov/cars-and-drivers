@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    container_name: cars_and_drivers_db
+    image: mysql:5.7
+    restart: unless-stopped
+    tty: true
+    env_file: ./.env
+    command: --init-file /data/application/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$DATABASE_NAME
+    volumes:
+      - db:/var/lib/mysql
+      - ./.docker/mysql/init.sql:/data/application/init.sql
+    networks:
+      - cars_and_drivers_network
+
+  app:
+    container_name: cars_and_drivers_app
+    depends_on:
+      - mysqldb
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$PORT
+    tty: true
+    networks:
+      - cars_and_drivers_network
+
+volumes: 
+  db:
+
+networks:
+  cars_and_drivers_network:
