@@ -26,7 +26,7 @@ export class DriverResolver {
     return await this.driverService.create({ name, phone, note });
   }
 
-  @Mutation(returns => CarModel)
+  @Mutation(returns => DriverModel)
   async linkWithCar(@Args('car_id') car_id: number, @Args('id') id: number) {
     return await this.driverService.update({ car_id }, id);
   }
