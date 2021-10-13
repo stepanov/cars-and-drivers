@@ -24,6 +24,7 @@ export class CreateCarTable1633867040286 implements MigrationInterface {
           {
             name: 'note',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',

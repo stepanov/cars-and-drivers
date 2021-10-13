@@ -18,20 +18,18 @@ export class CreateDriverTable1633848292906 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'email',
-            type: 'varchar',
-          },
-          {
             name: 'phone',
             type: 'varchar',
           },
           {
             name: 'note',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'car_id',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'created_at',
