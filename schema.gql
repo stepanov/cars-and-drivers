@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CarModel {
+  id: Float!
+  plate_number: String!
+  brand: String!
+  note: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  drivers: DriverModel!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DriverModel {
+  id: Float!
+  name: String!
+  phone: String!
+  note: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Query {
+  driver(id: String!): DriverModel!
+  drivers: [DriverModel!]!
+  car(id: String!): CarModel!
+  cars: [CarModel!]!
+}
+
+type Mutation {
+  createDriver(note: String!, phone: String!, name: String!): DriverModel!
+  updateDriver(car_id: Float!, id: Float!): DriverModel!
+  createCar(note: String!, brand: String!, plate_number: String!): CarModel!
+}

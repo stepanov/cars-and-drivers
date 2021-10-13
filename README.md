@@ -1,73 +1,158 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Cars and drivers demo app
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Pre-request
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+* node
+* mysql
+* docker
 
-## Description
+## Build and run
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Docker
 
-## Installation
+**Clone the project**
+```
+$ git clone git@github.com:stepanov/cars-and-drivers.git
+```
 
-```bash
+**Configuration**
+```
+$ copy .env.example .env
+```
+
+**Run docker**
+```
+$ docker-compose -f docker-compose.yml up --build
+```
+
+**Run migrations**
+```
+$ docker-compose run app npx typeorm migration:run
+```
+
+#### Test
+
+App will be available locally at http;//localhost:3010 (if you change the port then use it instead).
+GraphQL playground: http://localhost:3010/graphql
+
+##### Queries
+
+**Get Cars***
+```
+  query getCars {
+    cars{
+      plate_number
+      brand
+      drivers {
+        name
+        phone
+      }
+    }
+  }
+```
+
+** Get Car by ID**
+```
+  query getCar {
+    car(
+      id:1
+    ) {
+      plate_number
+      brand
+    }
+  }
+```
+
+**Get Drivers**
+```
+  query getDrivers {
+    drivers {
+      name
+      phone
+    }
+  }
+```
+
+**Get Driver By ID**
+```
+  query getDriver {
+    driver(
+      id:1
+    ) {
+      name
+      phone
+    }
+  }
+```
+
+##### Mutations
+
+**Add a car**
+```
+  mutation createCar {
+    createCar(
+      plate_number:"ABC124"
+      brand: "Opel"
+      note:"My second car"
+    ) {
+      id
+    }
+  }
+```
+
+**Add a driver**
+```
+  mutation createDriver {
+    createDriver(
+      name: "Bobby Torn"
+      phone:"1234557674"
+      note:"The second driver"
+    ) {
+      id
+    }
+  }
+```
+
+**Update a driver**
+```
+  mutation updateDriver {
+    updateDriver(
+      id:2
+      car_id:1
+    ) {
+      id
+    }
+  }
+```
+
+### Development mode
+
+**Clone the project**
+```
+$ git clone git@github.com:stepanov/cars-and-drivers.git
+```
+
+**Configuration**
+```
+$ copy .env.example .env
+```
+
+**Build the project**
+```
 $ npm install
 ```
 
-## Running the app
+**Create a database**
+```
+$ mysqladmin -uroot create cars_and_drivers
+```
 
-```bash
-# development
-$ npm run start
+**Run migrations**
+```
+$ npx typeorm migration:run
+```
 
-# watch mode
+**Run the project**
+```
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+``` 
