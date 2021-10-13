@@ -11,6 +11,8 @@ import { CarModule } from './cars/car.module';
   imports: [
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
+      debug: true,
+      playground: true,
       autoSchemaFile: 'schema.gql',
     }),
     TypeOrmModule.forRoot(),

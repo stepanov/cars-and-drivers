@@ -9,6 +9,7 @@ type CarModel {
   note: String!
   created_at: DateTime!
   updated_at: DateTime!
+  drivers: DriverModel!
 }
 
 """
@@ -34,6 +35,6 @@ type Query {
 
 type Mutation {
   createDriver(note: String!, phone: String!, name: String!): DriverModel!
-  linkWithCar(id: Float!, car_id: Float!): DriverModel!
+  updateDriver(car_id: Float!, id: Float!): DriverModel!
   createCar(note: String!, brand: String!, plate_number: String!): CarModel!
 }

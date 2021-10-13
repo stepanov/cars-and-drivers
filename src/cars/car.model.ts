@@ -30,14 +30,22 @@ export class CarModel {
 
   @Field()
   @Column()
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   created_at: Date;
 
   @Field()
   @Column()
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
   updated_at: Date;
 
+  @Field(type => DriverModel)
   @OneToMany(() => DriverModel, (driver) => driver.car)
   drivers: DriverModel[];
 }

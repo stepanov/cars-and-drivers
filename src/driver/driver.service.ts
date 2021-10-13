@@ -12,11 +12,24 @@ export class DriverService {
   ) {}
 
   create(data: DriverDto): Promise<DriverModel> {
-    return this.driverRepository.save(data);
+    const result = this.driverRepository.save({
+      ...data,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+
+    console.log(`Result: ${JSON.stringify(result)}`);
+    return result;
   }
 
   update(data: DriverUpdateDto, id: number): Promise<UpdateResult> {
-    return this.driverRepository.update(id, data);
+    console.log(`id=${id} --> ${JSON.stringify(data)}`);
+    const result = this.driverRepository.update(id, {
+      ...data,
+      updated_at: new Date().toISOString(),
+    });
+    console.log(`Result: ${JSON.stringify(result)}`);
+    return result;
   }
 
   findAll(): Promise<DriverModel[]> {

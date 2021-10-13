@@ -11,7 +11,11 @@ export class CarService {
   ) {}
 
   create(data: CarDto): Promise<CarModel> {
-    return this.carRepository.save(data);
+    return this.carRepository.save({
+      ...data,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
   }
 
   findAll(): Promise<CarModel[]> {

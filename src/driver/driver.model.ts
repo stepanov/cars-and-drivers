@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @ObjectType()
@@ -30,14 +31,25 @@ export class DriverModel {
 
   @Field()
   @Column()
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   created_at: Date;
 
   @Field()
   @Column()
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
   updated_at: Date;
 
-  @ManyToOne(() => CarModel, (car) => car.drivers)
+  @ManyToOne(() => CarModel, (car) => car.drivers, { eager: false })
+  @JoinColumn({ name: 'car_id', referencedColumnName: 'id' })
   car: CarModel;
+
+  @Column()
+  car_id: number;
 }
