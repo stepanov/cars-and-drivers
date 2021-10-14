@@ -22,7 +22,7 @@ export class CarService {
     return this.carRepository.find();
   }
 
-  findOne(id: string): Promise<CarModel> {
+  findOne(id: number): Promise<CarModel> {
     return this.carRepository.findOne(id);
   }
 }

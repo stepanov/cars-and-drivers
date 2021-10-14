@@ -22,21 +22,22 @@ export class DriverService {
     return result;
   }
 
-  update(data: DriverUpdateDto, id: number): Promise<UpdateResult> {
+  update(data: DriverUpdateDto, id: number): Promise<DriverModel> {
     console.log(`id=${id} --> ${JSON.stringify(data)}`);
     const result = this.driverRepository.update(id, {
       ...data,
       updated_at: new Date().toISOString(),
     });
     console.log(`Result: ${JSON.stringify(result)}`);
-    return result;
+
+    return this.findOne(id);
   }
 
   findAll(): Promise<DriverModel[]> {
     return this.driverRepository.find();
   }
 
-  findOne(id: string): Promise<DriverModel> {
+  findOne(id: number): Promise<DriverModel> {
     return this.driverRepository.findOne(id);
   }
 }
