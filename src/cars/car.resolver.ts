@@ -8,7 +8,7 @@ export class CarResolver {
   constructor(@Inject(CarService) private carService: CarService) {}
 
   @Query(returns => CarModel)
-  async car(@Args('id') id: string) {
+  async car(@Args('id') id: number) {
     return await this.carService.findOne(id);
   }
 

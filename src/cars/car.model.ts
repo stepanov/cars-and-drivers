@@ -45,7 +45,6 @@ export class CarModel {
   })
   updated_at: Date;
 
-  @Field(type => DriverModel)
   @OneToMany(() => DriverModel, (driver) => driver.car)
   drivers: DriverModel[];
 }

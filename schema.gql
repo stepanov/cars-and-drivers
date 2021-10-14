@@ -9,7 +9,6 @@ type CarModel {
   note: String!
   created_at: DateTime!
   updated_at: DateTime!
-  drivers: DriverModel!
 }
 
 """
@@ -27,9 +26,9 @@ type DriverModel {
 }
 
 type Query {
-  driver(id: String!): DriverModel!
+  driver(id: Float!): DriverModel!
   drivers: [DriverModel!]!
-  car(id: String!): CarModel!
+  car(id: Float!): CarModel!
   cars: [CarModel!]!
 }
 
